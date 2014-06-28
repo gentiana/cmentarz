@@ -23,11 +23,10 @@ gem 'sprockets'
 gem 'haml-rails'
 
 group :development, :test do
+  gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'guard-rspec'
-  gem 'spork-rails'
-  gem 'guard-spork'
-  gem 'childprocess'
+  gem 'guard-spring'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 end
 
