@@ -39,4 +39,10 @@ RSpec.describe Person, :type => :model do
     person.lived = 0
     expect(person).to be_valid
   end
+  
+  specify "must be born before dies" do
+    person.birth_date = FactoryGirl.build(:date)
+    person.death_date = FactoryGirl.build(:death_date)
+    expect(person).not_to be_valid
+  end
 end

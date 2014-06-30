@@ -1,22 +1,4 @@
 FactoryGirl.define do
-  factory :quarter do
-    sequence(:name) { |i| "Kwatera #{i}" }
-  end
-  
-  factory :grave do
-    number '666'
-    quarter
-  end
-  
-  factory :person do
-    first_name 'Alicja'
-    last_name 'Grzybowska'
-    family_name 'Piwowarczyk'
-    
-    association :grave
-  end
-  
-  
   factory :date, class: BirthDate do
     day 29
     month 2
@@ -69,5 +51,11 @@ FactoryGirl.define do
     factory :without_month do
       day 6
     end
+  end
+  
+  factory :death_date do
+    year 1956
+    month 12
+    day 1
   end
 end
