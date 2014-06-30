@@ -21,10 +21,12 @@ gem 'sprockets'
 # gem 'will_paginate'
 # gem 'bootstrap-will_paginate'
 gem 'haml-rails'
+gem 'bitmask_attributes'
 
 group :development, :test do
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
+  gem 'rspec-its'
   gem 'guard-rspec'
   gem 'guard-spring'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'

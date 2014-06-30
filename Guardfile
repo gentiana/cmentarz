@@ -1,7 +1,7 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard :rspec, all_after_pass: false do
+guard :rspec, notification: true, all_on_start: true, cmd: 'spring rspec', all_after_pass: false  do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
@@ -20,15 +20,15 @@ guard :rspec, all_after_pass: false do
   # Turnip features and steps
   watch(%r{^spec/acceptance/(.+)\.feature$})
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
-end
-
-
-guard 'spring', :rspec_cli => '--color' do
-  watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^spec/spec_helper\.rb$})                   { |m| 'spec' }
-  watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
-  watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
-  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  do |m|
-    %W(spec/routing/#{m[1]}_routing_spec.rb spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb spec/requests/#{m[1]}_spec.rb)
+  
+  # Custom date
+  watch(%r{^(spec|app)/models/concerns/custom_date(_spec)?\.rb$}) do
+    "spec/models/birth_date_spec.rb"
+    # running death_date_spec is reudndant
+  end
+  
+  # Data state
+  watch(%r{^(spec|app)/models/concerns/data_state(_spec)?\.rb$}) do
+    ["spec/models/person_spec.rb", "spec/models/grave_spec.rb"]
   end
 end
