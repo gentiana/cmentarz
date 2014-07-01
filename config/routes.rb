@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  get 'quarters/show'
+
+  get 'quarters/new'
+
+  get 'quarters/edit'
+
+  get 'quarters/index'
+
+  resources :quarters
+  resources :graves
+  resources :people
+  
+  root 'people#index'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -14,12 +14,15 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
-gem 'bootstrap-sass'
+# gem 'bootstrap-sass'
+gem 'twitter-bootstrap-rails'
+gem "therubyracer"
+gem "less-rails"
 gem 'sprockets'
 # gem 'bcrypt'
 # gem 'faker'
-# gem 'will_paginate'
-# gem 'bootstrap-will_paginate'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 gem 'haml-rails'
 gem 'bitmask_attributes'
 
