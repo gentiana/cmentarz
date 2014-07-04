@@ -1,5 +1,5 @@
 shared_examples_for "date" do
-  let(:date) { FactoryGirl.build(:date) }
+  let(:date) { build(:date) }
   subject { date }
   it { should be_valid }
   
@@ -11,7 +11,7 @@ shared_examples_for "date" do
   context "when valid" do
     [:date, :just_year, :without_day].each do |valid|
       it "should pass validations" do
-        date = FactoryGirl.build(valid)
+        date = build(valid)
         expect(date).to be_valid
       end
     end
@@ -23,7 +23,7 @@ shared_examples_for "date" do
                      :very_invalid_date]
     invalid_dates.each do |invalid|
       it "shouldn't pass validations" do
-        date = FactoryGirl.build(invalid)
+        date = build(invalid)
         expect(date).not_to be_valid
       end
     end

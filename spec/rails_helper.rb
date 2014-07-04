@@ -43,4 +43,7 @@ RSpec.configure do |config|
   # filter tags
   config.filter_run_excluding slow: true
   config.run_all_when_everything_filtered = true
+  
+  # factory girl
+  config.include FactoryGirl::Syntax::Methods
 end

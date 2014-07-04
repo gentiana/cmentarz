@@ -12,12 +12,13 @@ class Person < ActiveRecord::Base
     [first_name, last_name, family_name_in_parenthesis].compact.join(' ')
   end
   
+
   private
+  
   def family_name_in_parenthesis
     "(#{family_name})" if family_name.present?
   end
   
-  private
   def birth_before_death
     if birth_date && death_date && !birth_date.could_be_before(death_date)
       errors[:base] << "A man must be born before he dies"

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Person, :type => :model do
   it { should belong_to :grave }   # forever
   
-  let(:person) { FactoryGirl.build(:person) }
+  let(:person) { build(:person) }
   subject { person }
   it { should be_valid }
   
@@ -17,7 +17,6 @@ RSpec.describe Person, :type => :model do
     fields = [:first_name, :last_name, :family_name, :lived, :description,
               :notes, :data_state, :raw_record]
     associations = [:grave, :birth_date, :death_date]
-    # enum = [:auto?, :checked?, :parish_books?, :user_nonchecked?]
     other_methods = [:full_name]
     
     it { should respond_to_methods(fields, associations, other_methods) }
@@ -41,8 +40,8 @@ RSpec.describe Person, :type => :model do
   end
   
   specify "must be born before dies" do
-    person.birth_date = FactoryGirl.build(:date)
-    person.death_date = FactoryGirl.build(:death_date)
+    person.birth_date = build(:date)
+    person.death_date = build(:death_date)
     expect(person).not_to be_valid
   end
 end
