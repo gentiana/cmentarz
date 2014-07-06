@@ -1,3 +1,5 @@
+include ApplicationHelper
+
 RSpec::Matchers.define "respond_to_methods" do |*arrays|
   match do |model|
     arrays.flatten.each do |method|
@@ -16,4 +18,8 @@ end
 
 def build_grave(quarter_id, number)
   build(:grave, quarter_id: quarter_id, number: number.to_s)
+end
+
+def t(string, options={})
+  I18n.t(string, options)
 end

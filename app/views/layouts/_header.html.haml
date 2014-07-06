@@ -5,10 +5,10 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.brand{href: "#"} Some Store
+      = link_to t('menu.main'), root_url, class: 'brand'
       .nav-collapse
         %ul.nav
-          %li= link_to "Graves",graves_path
-          %li= link_to "Price List"
-          %li= link_to "Contact Us"
-          %li= link_to "Cart"
+          %li= link_to t('menu.people'), people_path
+          %li= link_to t('menu.graves'), graves_path
+          %li= link_to t('menu.quarters'), quarters_path
+          %li= link_to t('menu.gallery'), '#'
