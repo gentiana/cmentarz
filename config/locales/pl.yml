@@ -1,2 +1,16 @@
 pl:
-  hello: "Witaj, świecie!"
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M"
+      short: "%Y-%m-%d"
+      long: "%Y-%m-%d %H:%M:%S"
+  title: Stary cmentarz w Chrzanowie
+  menu:
+    main: Cmentarz
+    people: Pochowane osoby
+    graves: Groby
+    quarters: Kwatery
+    gallery: Galeria
+  graves:
+    index:
+      title: Lista grobów
