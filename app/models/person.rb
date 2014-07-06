@@ -9,7 +9,11 @@ class Person < ActiveRecord::Base
   validate :birth_before_death
   
   def full_name
-    [first_name, last_name, family_name_in_parenthesis].compact.join(' ')
+    if [first_name, last_name, family_name].any?(&:present?)
+      [first_name, last_name, family_name_in_parenthesis].compact.join(' ')
+    else
+      "Nieznane"
+    end
   end
   
 

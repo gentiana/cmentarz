@@ -29,6 +29,8 @@ RSpec.describe Person, :type => :model do
       expect(person.full_name).to eq "Alicja Grzybowska"
       person.family_name = '    ' 
       expect(person.full_name).to eq "Alicja Grzybowska"
+      person.first_name = person.last_name = '  '
+      expect(person.full_name).to eq "Nieznane"
     end
   end
   
