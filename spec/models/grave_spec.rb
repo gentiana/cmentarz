@@ -21,12 +21,19 @@ RSpec.describe Grave, :type => :model do
   
   it_behaves_like "data state"
   
-  specify "quarter and number combinaiton should be unique" do
-    grave.save
-    grave2 = create(:grave)
-    expect(grave2).to be_valid
-    grave2.quarter = grave.quarter
-    expect(grave2).not_to be_valid
+  describe "validations" do
+    specify "quarter and number combinaiton should be unique" do
+      grave.save
+      grave2 = create(:grave)
+      expect(grave2).to be_valid
+      grave2.quarter = grave.quarter
+      expect(grave2).not_to be_valid
+    end
+    
+    specify "number can't be negative" do
+      grave.number = '-5'
+      expect(grave).not_to be_valid
+    end
   end
   
   context "set_grave_type!" do
@@ -34,6 +41,15 @@ RSpec.describe Grave, :type => :model do
       grave.family!
       grave.set_grave_type!
       expect(grave).to be_single
+    end
+  end
+  
+  context "comparing" do
+    it "should sort graves by quarter_id and by number" do
+      quarter1 = [build_grave(1, 555)]
+      quarter3 = %w(6 100 qwerty asdf 777blah).map { |num| build_grave(3, num) }
+      graves = quarter1 + quarter3
+      expect(graves.sort.map(&:number)).to eq %w(555 777blah asdf qwerty 6 100)
     end
   end
 end

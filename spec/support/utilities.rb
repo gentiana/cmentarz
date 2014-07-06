@@ -13,3 +13,7 @@ end
 def birth_date(year, month=nil, day=nil)
   BirthDate.new(year: year, month: month, day: day)
 end
+
+def build_grave(quarter_id, number)
+  build(:grave, quarter_id: quarter_id, number: number.to_s)
+end
