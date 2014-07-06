@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-  get 'quarters/show'
-
-  get 'quarters/new'
-
-  get 'quarters/edit'
-
-  get 'quarters/index'
-
   resources :quarters
   resources :graves
   resources :people
