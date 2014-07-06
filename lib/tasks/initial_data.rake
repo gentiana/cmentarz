@@ -41,5 +41,6 @@ end
 def set_grave_types
   Grave.find_each do |grave|
     grave.set_grave_type!
+    grave.data_state = [:auto]
   end
 end
