@@ -1,11 +1,10 @@
 class GravesController < ApplicationController
-  before_action :set_grave, only: [:show, :edit]
-  
   def index
-    @graves = Grave.paginate(page: params[:page])
+    @quarters = Quarter.includes(:graves).select { |q| q.graves.any? }
   end
   
   def show
+    @grave = Grave.find(params[:id])
   end
   
   def new
@@ -17,6 +16,7 @@ class GravesController < ApplicationController
   end
   
   def edit
+    @grave = Grave.find(params[:id])
   end
   
   def update
@@ -27,13 +27,11 @@ class GravesController < ApplicationController
     Grave.find(params[:id]).destroy
   end
   
+  
   private
-  def set_grave
-    @grave = Grave.find(params[:id])
-  end
   
   def grave_params
-    params.require(:grave).permit(:number, :type, :row, :description, :family_name,
-                                  :data_state, :notes)
+    params.require(:grave).permit(:number, :grave_type, :description,
+                                  :family_name, :data_state, :notes)
   end
 end
