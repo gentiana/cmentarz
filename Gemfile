@@ -14,10 +14,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
-# gem 'bootstrap-sass'
-gem 'twitter-bootstrap-rails'
-gem "therubyracer"
-gem "less-rails"
+gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
 gem 'sprockets'
 # gem 'bcrypt'
 # gem 'faker'

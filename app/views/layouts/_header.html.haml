@@ -1,14 +1,17 @@
-.navbar.navbar-fixed-top
-  .navbar-inner
-    .container
-      %a.btn.btn-navbar{data: {toggle: "collapse", target: ".nav-collapse"}}
+%nav.navbar.navbar-default{role: "navigation"}
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle{type: "button", "data-toggle" => "collapse",
+                            "data-target" => "#bs-example-navbar-collapse-1"}
+        %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to t('menu.main'), root_url, class: 'brand'
-      .nav-collapse
-        %ul.nav
-          %li= link_to t('menu.people'), people_path
-          %li= link_to t('menu.graves'), graves_path
-          %li= link_to t('menu.quarters'), quarters_path
-          %li= link_to t('menu.gallery'), '#'
+      = link_to t('menu.main'), root_url, class: 'navbar-brand'
+      
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li= link_to t('menu.people'), people_path
+        %li= link_to t('menu.graves'), graves_path
+        %li= link_to t('menu.quarters'), quarters_path
+        %li= link_to t('menu.gallery'), '#'
