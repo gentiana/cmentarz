@@ -1,6 +1,8 @@
 module ApplicationHelper
-  def alert(type, msg)
-    content_tag(:div, msg, class: "alert alert-#{type}")
+  def alert_box(type, msg)
+    # translate rails customary types to bootstrap types
+    types = {notice: :info, error: :danger}
+    content_tag(:div, msg, class: "alert alert-#{types[type.to_sym] || type}")
   end
   
   def set_title
