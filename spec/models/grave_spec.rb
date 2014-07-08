@@ -36,7 +36,7 @@ RSpec.describe Grave, :type => :model do
     end
   end
   
-  context "set_grave_type!" do
+  describe "#set_grave_type!" do
     it "should set type to single when without people" do
       grave.family!
       grave.set_grave_type!
@@ -44,7 +44,19 @@ RSpec.describe Grave, :type => :model do
     end
   end
   
-  context "comparing" do
+  describe "#name" do
+    context "when grave's number is an integer" do
+      its(:name) { should eq "Grób nr 666" }
+    end
+    
+    context "when grave's number isn't an integer" do
+      let(:name) { "Grób nieznanego żołnierza" }
+      before { grave.number = name }
+      its(:name) { should eq name }
+    end
+  end
+  
+  describe "comparing" do
     it "should sort graves by quarter_id and by number" do
       quarter1 = [build_grave(1, 555)]
       quarter3 = %w(6 100 qwerty asdf 777blah).map { |num| build_grave(3, num) }

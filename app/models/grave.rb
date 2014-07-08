@@ -32,6 +32,10 @@ class Grave < ActiveRecord::Base
     end
   end
   
+  def name
+    is_int?(number) ? "Grób nr #{number}" : number
+  end
+  
   
   private
   

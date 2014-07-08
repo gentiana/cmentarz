@@ -4,6 +4,15 @@ pl:
       default: "%Y-%m-%d %H:%M"
       short: "%Y-%m-%d"
       long: "%Y-%m-%d %H:%M:%S"
+  helpers:
+    actions: "Akcje"
+    links:
+      back: Wstecz
+      cancel: Anuluj
+      confirm: Jesteś pewien?
+      destroy: Usuń
+      new: Nowy
+      edit: Edytuj
   title: Stary cmentarz w Chrzanowie
   menu:
     main: Cmentarz
@@ -14,3 +23,11 @@ pl:
   graves:
     index:
       title: Lista grobów
+    show:
+      quarter: Kwatera / pas
+      number: Numer (nazwa) grobu
+      description: Opis
+      people: Pochowane osoby
+      family_name: Nazwisko rodowe
+      data_state: Stan danych
+      notes: Uwagi

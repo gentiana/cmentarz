@@ -1,41 +1,35 @@
-- model_class = Grave
 .page-header
-  %h1=t '.title', :default => model_class.model_name.human.titleize
+  %h1= @grave.name
 
 %p
-  %strong= model_class.human_attribute_name(:quarter_id) + ':'
-  %br
-  = @grave.quarter_id
+  = field_label :quarter
+  = link_to @grave.quarter.name, @grave.quarter
+
 %p
-  %strong= model_class.human_attribute_name(:type) + ':'
-  %br
-  = @grave.type
-%p
-  %strong= model_class.human_attribute_name(:row) + ':'
-  %br
-  = @grave.row
-%p
-  %strong= model_class.human_attribute_name(:number) + ':'
-  %br
+  = field_label :number
   = @grave.number
-%p
-  %strong= model_class.human_attribute_name(:description) + ':'
-  %br
-  = @grave.description
-%p
-  %strong= model_class.human_attribute_name(:family_name) + ':'
-  %br
-  = @grave.family_name
-%p
-  %strong= model_class.human_attribute_name(:data_state) + ':'
-  %br
-  = @grave.data_state
-%p
-  %strong= model_class.human_attribute_name(:notes) + ':'
-  %br
-  = @grave.notes
 
-.form-actions
-  = link_to t('.back', :default => t("helpers.links.back")), graves_path, :class => 'btn'
-  = link_to t('.edit', :default => t("helpers.links.edit")), edit_grave_path(@grave), :class => 'btn'
-  = link_to t('.destroy', :default => t("helpers.links.destroy")), grave_path(@grave), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+- if @grave.description.present?
+  %p
+    = field_label :description
+    = @grave.description
+  
+- if @grave.people.any?
+  %p
+    = field_label :people, no_br: true
+    - @grave.people.each do |person|
+      %br
+      = link_to person.full_name, person
+  
+- if true    # TODO admin?
+  
+  %p
+    = field_label :family_name
+    = @grave.family_name
+  %p
+    = field_label :notes
+    = @grave.notes
+  
+  .form-actions
+    = edit_btn edit_grave_path(@grave)
+    = delete_btn @grave
