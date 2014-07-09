@@ -1,4 +1,6 @@
 class GravesController < ApplicationController
+  before_filter :authorize, except: [:index, :show]
+  
   def index
     @quarters = Quarter.includes(:graves).select { |q| q.graves.any? }
   end

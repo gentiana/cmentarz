@@ -28,29 +28,38 @@ RSpec.describe "Grave Pages", :type => :request do
   
   describe "show" do
     let(:grave) { create(:grave) }
-    before { visit grave_path(grave) }
+    let(:public_contents) { [grave.name, grave.number, grave.description] }
+    let(:admin_only) { [grave.family_name, grave.notes] }
+    let(:admin_actions) { [t('helpers.links.edit'), t('helpers.links.destroy')] }
     
-    it "should have the right content" do
-      contents = [grave.name, grave.number, grave.description]
-      admin_contents = [grave.family_name, grave.notes]
-      (contents + admin_contents).each do |content|
-        expect(page).to have_content content
+    context "as plain user" do
+      before { visit grave_path(grave) }
+      
+      it { should have_contents public_contents }
+      it { should have_link grave.quarter.name }
+      
+      it { should_not have_contents admin_only }
+      it { should_not have_links admin_actions }
+      
+      context "grave with associated people" do
+        let!(:p1) { create(:person, grave: grave) }
+        let!(:p2) { create(:person, grave: grave, first_name: 'Hilda') }
+        before {visit grave_path(grave) }
+        
+        it "should list associated people" do
+          expect(page).to have_links [p1.full_name, p2.full_name]
+        end
       end
     end
     
-    it { should have_link grave.quarter.name }
-    it { should have_link t('helpers.links.edit') }
-    it { should have_link t('helpers.links.destroy') }
-    
-    context "grave with associated people" do
-      let!(:p1) { create(:person, grave: grave) }
-      let!(:p2) { create(:person, grave: grave, first_name: 'Hilda') }
-      before {visit grave_path(grave) }
-      
-      it "should list associated people" do
-        expect(page).to have_link p1.full_name
-        expect(page).to have_link p2.full_name
+    context "as admin" do
+      before do
+        sign_in
+        visit grave_path(grave)
       end
+      
+      it { should have_contents admin_only }
+      it { should have_links admin_actions }
     end
   end
 end

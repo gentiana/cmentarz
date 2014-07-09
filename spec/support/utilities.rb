@@ -1,13 +1,5 @@
 include ApplicationHelper
 
-RSpec::Matchers.define "respond_to_methods" do |*arrays|
-  match do |model|
-    arrays.flatten.each do |method|
-      expect(model).to respond_to method
-    end
-  end
-end
-
 def factory_to_s(factory_name)
   FactoryGirl.build(factory_name).to_s
 end
@@ -22,4 +14,18 @@ end
 
 def t(string, options={})
   I18n.t(string, options)
+end
+
+def expect_redirect(path=root_path)
+  expect(response).to redirect_to(path)
+end
+
+def sign_in(options = {})
+  if options[:no_capybara]
+    session[:password_digest] = Digest::SHA1.hexdigest('qwerty')
+  else
+    visit login_path
+    fill_in "Password", with: "qwerty"
+    click_button "Sign in"
+  end
 end
