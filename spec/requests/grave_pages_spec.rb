@@ -60,6 +60,10 @@ RSpec.describe "Grave Pages", :type => :request do
       
       it { should have_contents admin_only }
       it { should have_links admin_actions }
+      
+      it "should be able to destroy grave" do
+        expect { click_link t('helpers.links.destroy') }.to change(Grave, :count).by(-1)
+      end
     end
   end
 end

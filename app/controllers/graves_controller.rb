@@ -27,6 +27,8 @@ class GravesController < ApplicationController
   
   def destroy
     Grave.find(params[:id]).destroy
+    flash[:success] = "Destroyed grave"
+    redirect_to graves_path
   end
   
   
