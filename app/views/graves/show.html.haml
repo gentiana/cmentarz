@@ -3,7 +3,7 @@
 
 %p
   = field_label :quarter
-  = link_to @grave.quarter.name, @grave.quarter
+  = @grave.quarter ? (link_with_name @grave.quarter) : t('.no_quarter')
 
 %p
   = field_label :number

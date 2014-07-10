@@ -10,4 +10,16 @@ describe ApplicationHelper do
       expect(helper.page_title("Groby")).to eq("#{t('title')} | Groby")
     end
   end
+  
+  describe "#update_notice" do
+    it "returns the right string" do
+      expect(update_notice(:grave)).to eq("Aktualizowano grób")
+    end
+  end
+  
+  describe "#destroy_notice" do
+    it "returns the right string" do
+      expect(destroy_notice(:grave)).to eq("Usunięto grób")
+    end
+  end
 end

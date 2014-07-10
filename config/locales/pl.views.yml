@@ -1,0 +1,15 @@
+pl:
+  graves:
+    index:
+      title: Lista grobów
+    show:
+      quarter: Kwatera / pas
+      no_quarter: nie przypisano
+      number: Numer (nazwa) grobu
+      description: Opis
+      people: Pochowane osoby
+      family_name: Nazwisko rodowe
+      data_state: Stan danych
+      notes: Uwagi
+    edit:
+      title: Edytuj grób

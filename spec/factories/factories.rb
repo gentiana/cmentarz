@@ -5,13 +5,20 @@ FactoryGirl.define do
   end
   
   factory :grave do
-    number '666'
+    sequence(:number) { |i| i.to_s }
     grave_type 'single'
     description 'lorem ipsum'
     family_name 'Milanowicz'
     notes 'zażółć gęślą jaźń'
     
     quarter
+    
+    factory :updated_grave do
+      number '777'
+      description 'qwerty asdf'
+      family_name 'Sikora'
+      notes 'qui dolorem ipsum, quia dolor sit'
+    end
   end
   
   factory :person do

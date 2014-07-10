@@ -29,4 +29,20 @@ module ApplicationHelper
     label = t(".#{field}")
     raw "<strong>#{label}:</strong>#{'<br>' unless options[:no_br]}"
   end
+  
+  def link_with_name(resource)
+    link_to resource.name, resource
+  end
+  
+  def cancel_link(back_path)
+    link_to t("helpers.links.cancel"), back_path, class: 'btn btn-default'
+  end
+  
+  def update_notice(resource)
+    t('flash.updated', model: t("activerecord.models.#{resource}.one"))
+  end
+  
+  def destroy_notice(resource)
+    t('flash.destroyed', model: t("activerecord.models.#{resource}.one"))
+  end
 end

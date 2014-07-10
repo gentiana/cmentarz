@@ -66,4 +66,52 @@ RSpec.describe "Grave Pages", :type => :request do
       end
     end
   end
+  
+  describe "edit" do
+    let(:grave) { create(:grave) }
+    let!(:quarter) { create(:quarter) }
+    before do
+      sign_in
+      visit edit_grave_path(grave)
+    end
+    
+    describe "valid updating" do
+      let(:updated_grave) { attributes_for(:updated_grave, quarter: quarter) }
+      before do
+        updated_grave.delete(:grave_type)
+        updated_grave.each do |field, value|
+          fill_in simple_label(field), with: value
+        end
+        select quarter.name, from: simple_label(:quarter)
+        click_button "Aktualizuj grób"
+      end
+      
+      it { should have_contents updated_grave.keys + [quarter.name] }
+      
+      it "should update grave" do
+        updated = grave.reload
+        updated_grave.each do |field, value|
+          expect(updated[field]).to eq(value)
+        end
+        expect(updated.quarter).to eq(quarter)
+      end
+    end
+    
+    specify "trying to set number which is already taken" do
+      grave2 = create(:updated_grave, quarter: grave.quarter)
+      fill_in simple_label(:number), with: grave2.number
+      click_button "Aktualizuj grób"
+      
+      expect(page).to have_title "Edytuj grób"
+      expect(page).to have_content "zostało już zajęte"
+    end
+    
+    specify "setting no quarter" do
+      select "", from: simple_label(:quarter)
+      click_button "Aktualizuj grób"
+      
+      expect(page).to have_content t('graves.show.no_quarter')
+      expect(grave.reload.quarter).to be_nil
+    end
+  end
 end

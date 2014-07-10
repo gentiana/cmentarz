@@ -13,6 +13,20 @@ pl:
       destroy: Usuń
       new: Nowy
       edit: Edytuj
+  activerecord:
+    models:
+      grave:
+        one: grób
+        other: groby
+      person:
+        one: osobę
+        other: osoby
+      quarter:
+        one: kwaterę / pas
+        other: kwatery i pasy
+  flash:
+    updated: Aktualizowano %{model}
+    destroyed: Usunięto %{model}
   title: Stary cmentarz w Chrzanowie
   menu:
     main: Cmentarz
@@ -20,14 +34,3 @@ pl:
     graves: Groby
     quarters: Kwatery
     gallery: Galeria
-  graves:
-    index:
-      title: Lista grobów
-    show:
-      quarter: Kwatera / pas
-      number: Numer (nazwa) grobu
-      description: Opis
-      people: Pochowane osoby
-      family_name: Nazwisko rodowe
-      data_state: Stan danych
-      notes: Uwagi

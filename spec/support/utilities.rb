@@ -29,3 +29,11 @@ def sign_in(options = {})
     click_button "Sign in"
   end
 end
+
+def simple_label(field)
+  t("simple_form.labels.defaults.#{field}")
+end
+
+def saop
+  save_and_open_page
+end

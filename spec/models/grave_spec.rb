@@ -24,7 +24,7 @@ RSpec.describe Grave, :type => :model do
   describe "validations" do
     specify "quarter and number combinaiton should be unique" do
       grave.save
-      grave2 = create(:grave)
+      grave2 = create(:grave, number: grave.number)
       expect(grave2).to be_valid
       grave2.quarter = grave.quarter
       expect(grave2).not_to be_valid
@@ -46,7 +46,7 @@ RSpec.describe Grave, :type => :model do
   
   describe "#name" do
     context "when grave's number is an integer" do
-      its(:name) { should eq "Grób nr 666" }
+      its(:name) { should eq "Grób nr #{grave.number}" }
     end
     
     context "when grave's number isn't an integer" do
