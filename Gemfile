@@ -23,6 +23,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'haml-rails'
 gem 'bitmask_attributes'
+gem 'simple_form'
 
 group :development, :test do
   gem 'spring-commands-rspec'
