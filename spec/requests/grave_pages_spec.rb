@@ -7,8 +7,7 @@ RSpec.describe "Grave Pages", :type => :request do
     before { visit graves_path }
     let(:title) { t 'graves.index.title' }
     
-    it { should have_title page_title(title) }
-    it { should have_selector 'h1', text: title }
+    it_behaves_like "index page"
     
     it "should have link to the new grave page only for admin user" do
       new_grave = t('graves.index.new')
@@ -20,17 +19,17 @@ RSpec.describe "Grave Pages", :type => :request do
     end
     
     describe "content" do
-      let!(:quarter) { create(:quarter, name: 'Kwatera 5') }
+      let!(:quarter) { create(:quarter) }
       
       it "shouldn't list quarter which has no graves" do
-        expect(page).not_to have_link 'Kwatera 5'
+        expect(page).not_to have_link quarter.name
       end
       
       it "should list quarter with its graves" do
-        create(:grave, quarter: quarter, number: '555')
+        grave = create(:grave, quarter: quarter)
         visit graves_path
-        expect(page).to have_link 'Kwatera 5'
-        expect(page).to have_link '555'
+        expect(page).to have_link quarter.name
+        expect(page).to have_link grave.number
       end
     end
   end

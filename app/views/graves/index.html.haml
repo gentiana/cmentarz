@@ -7,6 +7,6 @@
   %h1= t '.title'
 
 - @quarters.each do |quarter|
-  %h2= link_to quarter.name, quarter
+  %h2= link_with_name quarter
   - quarter.graves.sort.each do |grave|
     = link_to grave.number, grave
