@@ -5,7 +5,7 @@ RSpec.describe Grave, :type => :model do
   subject { grave }
   it { should be_valid }
   
-  it { should have_many :people }
+  it { should have_many(:people).dependent(:destroy) }
   it { should belong_to :quarter }
   it { should validate_presence_of :number }
   

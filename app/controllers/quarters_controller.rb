@@ -28,6 +28,7 @@ class QuartersController < ApplicationController
   
   def destroy
     Quarter.find(params[:id]).destroy
+    redirect_to quarters_path, notice: destroy_notice(:quarter)
   end
   
   

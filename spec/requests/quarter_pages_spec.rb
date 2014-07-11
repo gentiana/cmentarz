@@ -30,4 +30,16 @@ RSpec.describe "Quarter Pages", :type => :request do
     it { should have_selector 'h1', text: grave.quarter.name }
     it { should have_link grave.number, href: grave_path(grave) }
   end
+  
+  describe "destroy" do
+    let(:quarter) { create(:quarter) }
+    before do
+      sign_in
+      visit quarter_path(quarter)
+    end
+    
+    specify "when admin should be able to destroy a quarter" do
+      expect { click_link t('helpers.links.destroy') }.to change(Quarter, :count).by(-1)
+    end
+  end
 end

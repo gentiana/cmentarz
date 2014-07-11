@@ -16,6 +16,9 @@ pl:
       family_name: Nazwisko rodowe
       data_state: Stan danych
       notes: Uwagi
+      confirm: >
+        Uwaga! Razem z grobem zostaną usunięte wszystkie przypisane do niego
+        osoby. Jesteś pewien, że chcesz kontynuawać?
     edit:
       title: Edytuj grób
     new:
@@ -27,6 +30,10 @@ pl:
     show:
       short_name: Skrócona nazwa
       graves: Groby
+      confirm: >
+        Uwaga! Razem z kwaterą / pasem zostaną usunięte wszystkie przypisane do
+        niej groby, a także pochowane w nich osoby. Jesteś pewien, że chcesz
+        kontynuawać?
     edit:
       title: Edytuj kwaterę / pas
     new:

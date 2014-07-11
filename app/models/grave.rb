@@ -2,7 +2,7 @@ class Grave < ActiveRecord::Base
   include DataState
   include Comparable
   
-  has_many :people
+  has_many :people, dependent: :destroy
   belongs_to :quarter
   validates :number, presence: true, uniqueness: {scope: :quarter_id}
   validate :nonnegative_number

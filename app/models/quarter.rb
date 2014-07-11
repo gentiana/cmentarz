@@ -1,5 +1,5 @@
 class Quarter < ActiveRecord::Base
-  has_many :graves
+  has_many :graves, dependent: :destroy
   validates :name, :short_name, presence: true, uniqueness: true
   
   def self.create_from_short_name!(sn)

@@ -5,7 +5,7 @@ RSpec.describe Quarter, :type => :model do
   subject { quarter }
   it { should be_valid }
   
-  it { should have_many :graves }
+  it { should have_many(:graves).dependent(:destroy) }
   
   it { should validate_presence_of :name }
   it { should validate_uniqueness_of :name }
