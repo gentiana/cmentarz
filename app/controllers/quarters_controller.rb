@@ -7,6 +7,7 @@ class QuartersController < ApplicationController
   
   def show
     @quarter = Quarter.find(params[:id])
+    @graves = @quarter.graves
   end
   
   def new

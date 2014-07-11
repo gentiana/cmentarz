@@ -36,18 +36,18 @@ RSpec.describe "Grave Pages", :type => :request do
   
   describe "show" do
     let(:grave) { create(:grave) }
+    let(:path) { grave_path(grave) }
     let(:public_contents) { [grave.name, grave.number, grave.description] }
     let(:admin_only) { [grave.family_name, grave.notes] }
     let(:admin_actions) { [t('helpers.links.edit'), t('helpers.links.destroy')] }
+    
+    it_behaves_like "with admin content"
     
     context "as plain user" do
       before { visit grave_path(grave) }
       
       it { should have_contents public_contents }
       it { should have_link grave.quarter.name }
-      
-      it { should_not have_contents admin_only }
-      it { should_not have_links admin_actions }
       
       context "grave with associated people" do
         let!(:p1) { create(:person, grave: grave) }
@@ -65,9 +65,6 @@ RSpec.describe "Grave Pages", :type => :request do
         sign_in
         visit grave_path(grave)
       end
-      
-      it { should have_contents admin_only }
-      it { should have_links admin_actions }
       
       it "should be able to destroy grave" do
         expect { click_link t('helpers.links.destroy') }.to change(Grave, :count).by(-1)

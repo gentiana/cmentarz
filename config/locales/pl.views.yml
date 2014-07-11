@@ -25,7 +25,8 @@ pl:
       title: Lista kwater i pasów
       new: Nowa kwatera / pas
     show:
-      name: Nazwa
+      short_name: Skrócona nazwa
+      graves: Groby
     edit:
       title: Edytuj kwaterę / pas
     new:

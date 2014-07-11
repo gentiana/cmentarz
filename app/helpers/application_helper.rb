@@ -5,8 +5,9 @@ module ApplicationHelper
     content_tag(:div, msg, class: "alert alert-#{types[type.to_sym] || type}")
   end
   
-  def set_title
-    provide(:title, t('.title'))
+  def set_title(title=nil)
+    title ||= t('.title')
+    provide(:title, title)
   end
   
   def page_title(subtitle=nil)

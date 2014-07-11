@@ -1,13 +1,19 @@
-- model_class = Quarter
+- set_title @quarter.name
 .page-header
-  %h1=t '.title', :default => model_class.model_name.human.titleize
+  %h1= @quarter.name
 
-%p
-  %strong= model_class.human_attribute_name(:name) + ':'
-  %br
-  = @quarter.name
+- if admin?
+  %p
+    = field_label :short_name
+    = @quarter.short_name
 
-.form-actions
-  = link_to t('.back', :default => t("helpers.links.back")), quarters_path, :class => 'btn'
-  = link_to t('.edit', :default => t("helpers.links.edit")), edit_quarter_path(@quarter), :class => 'btn'
-  = link_to t('.destroy', :default => t("helpers.links.destroy")), quarter_path(@quarter), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+- if @graves.any?
+  %p
+    = field_label :graves
+    - @graves.sort.each do |grave|
+      = link_to grave.number, grave
+
+- if admin?
+  .form-actions
+  = edit_btn edit_quarter_path(@quarter)
+  = delete_btn @quarter
