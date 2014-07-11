@@ -17,4 +17,4 @@
         %li= link_to t('menu.gallery'), '#'
       - if admin?
         %ul.nav.navbar-nav.navbar-right
-          %li= link_to "Logout", logout_path, method: "delete"
+          %li= link_to t('menu.logout'), logout_path, method: "delete"

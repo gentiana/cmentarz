@@ -28,6 +28,8 @@ pl:
     created: Utworzono %{model}
     updated: Aktualizowano %{model}
     destroyed: Usunięto %{model}
+    login: Zalogowano
+    logout: Wylogowano
   title: Stary cmentarz w Chrzanowie
   menu:
     main: Cmentarz
@@ -35,3 +37,4 @@ pl:
     graves: Groby
     quarters: Kwatery
     gallery: Galeria
+    logout: Wyloguj

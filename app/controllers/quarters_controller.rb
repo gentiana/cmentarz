@@ -1,4 +1,6 @@
 class QuartersController < ApplicationController
+  before_filter :authorize, except: [:index, :show]
+  
   def index
     @quarters = Quarter.all
   end

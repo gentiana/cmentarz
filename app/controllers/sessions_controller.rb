@@ -5,13 +5,13 @@ class SessionsController < ApplicationController
   def create
     pass_digest = Digest::SHA1.hexdigest(params[:password])
     session[:password_digest] = pass_digest
-    flash[:success] = "Successfully logged in" if pass_digest == admin_digest
+    flash[:success] = t('flash.login') if pass_digest == admin_digest
     redirect_to root_path
   end
     
   def destroy
     reset_session
-    flash[:success] = "Successfully logged out"
+    flash[:success] = t('flash.logout')
     redirect_to root_path
   end
 end

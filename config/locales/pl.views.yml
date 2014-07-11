@@ -1,4 +1,8 @@
 pl:
+  sessions:
+    new:
+      login: Zaloguj się
+      password: Hasło
   graves:
     index:
       title: Lista grobów
@@ -16,3 +20,13 @@ pl:
       title: Edytuj grób
     new:
       title: Nowy grób
+  quarters:
+    index:
+      title: Lista kwater i pasów
+      new: Nowa kwatera / pas
+    show:
+      name: Nazwa
+    edit:
+      title: Edytuj kwaterę / pas
+    new:
+      title: Nowa kwatera / pas

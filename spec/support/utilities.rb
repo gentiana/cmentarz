@@ -25,8 +25,8 @@ def sign_in(options = {})
     session[:password_digest] = Digest::SHA1.hexdigest('qwerty')
   else
     visit login_path
-    fill_in "Password", with: "qwerty"
-    click_button "Sign in"
+    fill_in :password, with: "qwerty"
+    click_button t('sessions.new.login')
   end
 end
 
