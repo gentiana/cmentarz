@@ -14,7 +14,12 @@ class GravesController < ApplicationController
   end
   
   def create
-    
+    @grave = Grave.new(grave_params)
+    if @grave.save
+      redirect_to @grave, notice: create_notice(:grave)
+    else
+      render :new
+    end
   end
   
   def edit

@@ -38,6 +38,10 @@ module ApplicationHelper
     link_to t("helpers.links.cancel"), back_path, class: 'btn btn-default'
   end
   
+  def create_notice(resource)
+    t('flash.created', model: t("activerecord.models.#{resource}.one"))
+  end
+  
   def update_notice(resource)
     t('flash.updated', model: t("activerecord.models.#{resource}.one"))
   end

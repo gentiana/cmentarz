@@ -49,4 +49,6 @@ RSpec.configure do |config|
   
   # Capybara
   config.include Capybara::DSL
+  
+  # config.profile_examples = 10
 end

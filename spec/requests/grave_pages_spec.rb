@@ -10,6 +10,15 @@ RSpec.describe "Grave Pages", :type => :request do
     it { should have_title page_title(title) }
     it { should have_selector 'h1', text: title }
     
+    it "should have link to the new grave page only for admin user" do
+      new_grave = t('graves.index.new')
+      expect(page).not_to have_link new_grave
+      sign_in
+      visit graves_path
+      click_link new_grave
+      expect(page).to have_title new_grave
+    end
+    
     describe "content" do
       let!(:quarter) { create(:quarter, name: 'Kwatera 5') }
       
@@ -86,7 +95,7 @@ RSpec.describe "Grave Pages", :type => :request do
         click_button "Aktualizuj grób"
       end
       
-      it { should have_contents updated_grave.keys + [quarter.name] }
+      it { should have_contents(updated_grave.values + [quarter.name]) }
       
       it "should update grave" do
         updated = grave.reload
@@ -112,6 +121,29 @@ RSpec.describe "Grave Pages", :type => :request do
       
       expect(page).to have_content t('graves.show.no_quarter')
       expect(grave.reload.quarter).to be_nil
+    end
+  end
+  
+  describe "new" do
+    let(:grave) { attributes_for(:grave) }
+    let!(:quarter) { create(:quarter) }
+    before do
+      sign_in
+      visit new_grave_path
+      grave.delete(:grave_type)
+      grave.each do |field, value|
+        fill_in simple_label(field), with: value
+      end
+      select quarter.name, from: simple_label(:quarter)
+    end
+    
+    it "should create a new grave" do
+      expect { click_button "Utwórz grób" }.to change(Grave, :count).by(1)
+    end
+    
+    it "should render a grave page" do
+      click_button "Utwórz grób"
+      expect(page).to have_contents(grave.values + [quarter.name])
     end
   end
 end

@@ -11,6 +11,12 @@ describe ApplicationHelper do
     end
   end
   
+  describe "#create_notice" do
+    it "returns the right string" do
+      expect(create_notice(:grave)).to eq("Utworzono grób")
+    end
+  end
+  
   describe "#update_notice" do
     it "returns the right string" do
       expect(update_notice(:grave)).to eq("Aktualizowano grób")

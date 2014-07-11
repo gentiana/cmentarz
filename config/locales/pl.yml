@@ -25,6 +25,7 @@ pl:
         one: kwaterę / pas
         other: kwatery i pasy
   flash:
+    created: Utworzono %{model}
     updated: Aktualizowano %{model}
     destroyed: Usunięto %{model}
   title: Stary cmentarz w Chrzanowie

@@ -2,6 +2,7 @@ pl:
   graves:
     index:
       title: Lista grobów
+      new: Nowy grób
     show:
       quarter: Kwatera / pas
       no_quarter: nie przypisano
@@ -13,3 +14,5 @@ pl:
       notes: Uwagi
     edit:
       title: Edytuj grób
+    new:
+      title: Nowy grób
