@@ -2,6 +2,11 @@ FactoryGirl.define do
   factory :quarter do
     sequence(:name) { |i| "Kwatera #{i}" }
     sequence(:short_name) { |i| "k#{i}" }
+    
+    factory :updated_quarter do
+      name "Pas 555"
+      short_name "p555"
+    end
   end
   
   factory :grave do

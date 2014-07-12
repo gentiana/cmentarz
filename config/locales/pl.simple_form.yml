@@ -7,6 +7,8 @@ pl:
         description: Opis
         family_name: Nazwisko rodowe
         notes: Uwagi
+        name: Nazwa
+        short_name: Skrócona nazwa
     required:
       text: 'wymagane'
       mark: '*'
