@@ -15,7 +15,7 @@ RSpec.describe Quarter, :type => :model do
   it { should respond_to_methods [:name, :short_name] }
   its(:class) { should respond_to :create_from_short_name! }
   
-  context "create_from_short_name!" do
+  describe ".create_from_short_name!" do
     before { Quarter.delete_all }
     
     it "should create quarter" do
@@ -26,6 +26,15 @@ RSpec.describe Quarter, :type => :model do
     it "should raise exception when cannot create" do
       create(:quarter, short_name: 'p3')
       expect { Quarter.create_from_short_name!('p3') }.to raise_exception
+    end
+  end
+  
+  describe ".sort_by_name" do
+    it "should sort quarters right" do
+      names = ["zzz", "Kwatera 14", "Pas 2", "Kwatera 3"]
+      quarters = names.map { |name| build(:quarter, name: name) }
+      sorted_names = Quarter.sort_by_name(quarters).map(&:name)
+      expect(sorted_names).to eq ["Kwatera 3", "Kwatera 14", "Pas 2", "zzz"]
     end
   end
 end
