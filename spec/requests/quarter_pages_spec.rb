@@ -73,5 +73,32 @@ RSpec.describe "Quarter Pages", :type => :request do
         expect(page).to have_content "zostało już zajęte"
       end
     end
+    
+    describe "new" do
+      let(:quarter) { attributes_for(:quarter) }
+      
+      specify "page should be avalaible from index page" do
+        visit quarters_path
+        click_link t('quarters.index.new')
+        expect(page).to have_title t('quarters.new.title')
+      end
+      
+      describe "creating quarter" do
+        before do
+          visit new_quarter_path
+          fill_in simple_label(:name), with: quarter[:name]
+          fill_in simple_label(:short_name), with: quarter[:short_name]
+        end
+        
+        it "should create a new quarter" do
+          expect { click_button "Utwórz kwaterę / pas" }.to change(Quarter, :count).by(1)
+        end
+        
+        it "should render a quarter page" do
+          click_button "Utwórz kwaterę / pas"
+          expect(page).to have_contents(quarter.values)
+        end
+      end
+    end
   end
 end
