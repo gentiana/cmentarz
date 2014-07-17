@@ -23,7 +23,12 @@ class QuartersController < ApplicationController
   end
   
   def update
-    
+    @quarter = Quarter.find(params[:id])
+    if @quarter.update(quarter_params)
+      redirect_to @quarter, notice: update_notice(:quarter)
+    else
+      render :edit
+    end
   end
   
   def destroy
