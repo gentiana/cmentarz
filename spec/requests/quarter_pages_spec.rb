@@ -31,15 +31,74 @@ RSpec.describe "Quarter Pages", :type => :request do
     it { should have_link grave.number, href: grave_path(grave) }
   end
   
-  describe "destroy" do
-    let(:quarter) { create(:quarter) }
-    before do
-      sign_in
-      visit quarter_path(quarter)
+  context "as admin user" do
+    before { sign_in }
+    
+    describe "destroy" do
+      let(:quarter) { create(:quarter) }
+      before { visit quarter_path(quarter) }
+      
+      it "should remove quarter" do
+        expect { click_link t('helpers.links.destroy') }.to change(Quarter, :count).by(-1)
+      end
     end
     
-    specify "when admin should be able to destroy a quarter" do
-      expect { click_link t('helpers.links.destroy') }.to change(Quarter, :count).by(-1)
+    describe "edit" do
+      let(:quarter) { create(:quarter) }
+      
+      specify "page should be avalaible from show page" do
+        visit quarter_path(quarter)
+        click_link t('helpers.links.edit')
+        expect(page).to have_title "Edytuj kwaterę / pas"
+      end
+      
+      specify "valid updating" do
+        visit edit_quarter_path(quarter)
+        update_params = attributes_for(:updated_quarter)
+        fill_in simple_label(:name), with: update_params[:name]
+        fill_in simple_label(:short_name), with: update_params[:short_name]
+        click_button "Aktualizuj kwaterę / pas"
+        expect(page).to have_contents(update_params.values)
+        updated = quarter.reload
+        expect(updated.name).to eq update_params[:name]
+        expect(updated.short_name).to eq update_params[:short_name]
+      end
+      
+      specify "trying to set already taken name" do
+        quarter2 = create(:quarter)
+        visit edit_quarter_path(quarter2)
+        fill_in simple_label(:name), with: quarter.name
+        click_button "Aktualizuj kwaterę / pas"
+        expect(page).to have_title "Edytuj kwaterę / pas"
+        expect(page).to have_content "zostało już zajęte"
+      end
+    end
+    
+    describe "new" do
+      let(:quarter) { attributes_for(:quarter) }
+      
+      specify "page should be avalaible from index page" do
+        visit quarters_path
+        click_link t('quarters.index.new')
+        expect(page).to have_title t('quarters.new.title')
+      end
+      
+      describe "creating quarter" do
+        before do
+          visit new_quarter_path
+          fill_in simple_label(:name), with: quarter[:name]
+          fill_in simple_label(:short_name), with: quarter[:short_name]
+        end
+        
+        it "should create a new quarter" do
+          expect { click_button "Utwórz kwaterę / pas" }.to change(Quarter, :count).by(1)
+        end
+        
+        it "should render a quarter page" do
+          click_button "Utwórz kwaterę / pas"
+          expect(page).to have_contents(quarter.values)
+        end
+      end
     end
   end
 end
