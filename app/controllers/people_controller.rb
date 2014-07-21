@@ -1,4 +1,5 @@
 class PeopleController < ApplicationController
+  before_filter :authorize, except: [:index, :show]
   
   def index
     @people = Person.paginate(page: params[:page])

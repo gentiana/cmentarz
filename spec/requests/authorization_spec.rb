@@ -37,6 +37,7 @@ RSpec.describe "Authorization", :type => :request do
   context "as non-admin" do
     let(:grave) { create(:grave) }
     let(:quarter) { create(:quarter) }
+    let(:person) { create(:person) }
     
     describe "when visiting forbidden pages" do
       after do
@@ -53,6 +54,11 @@ RSpec.describe "Authorization", :type => :request do
         specify { visit new_quarter_path }
         specify { visit edit_quarter_path(quarter) }
       end
+      
+      context "in the People controller" do
+        specify { visit new_person_path }
+        specify { visit edit_person_path(person) }
+      end
     end
     
     describe "when sending HTTP request" do
@@ -68,6 +74,12 @@ RSpec.describe "Authorization", :type => :request do
         specify { post quarters_path }
         specify { patch quarter_path(quarter) }
         specify { delete quarter_path(quarter) }
+      end
+      
+      context "in the People controller" do
+        specify { post people_path }
+        specify { patch person_path(person) }
+        specify { delete person_path(person) }
       end
     end
   end
