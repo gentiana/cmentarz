@@ -38,3 +38,18 @@ pl:
       title: Edytuj kwaterę / pas
     new:
       title: Nowa kwatera / pas
+  people:
+    index:
+      title: Lista pochowanych osób
+      new: Dodaj osobę
+      name: Imię i nazwisko
+      birth: Data urodzenia
+      death: Data śmierci
+      grave: Grób
+      actions: Akcje
+    show:
+      confirm: Jesteś pewien, że chcesz kontynuawać?
+    edit:
+      title: Edytuj osobę
+    new:
+      title: Dodaj osobę

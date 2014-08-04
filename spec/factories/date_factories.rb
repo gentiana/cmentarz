@@ -57,5 +57,6 @@ FactoryGirl.define do
     year 1956
     month 12
     day 1
+    association :person
   end
 end
