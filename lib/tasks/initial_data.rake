@@ -24,7 +24,8 @@ def create_quarters
 end
 
 def create_people_and_graves
-  people = File.read('data/people.tsv').split("\n")[1..-1].map { |p| p.split("\t") }
+  people = File.read('data/people.tsv').split("\n")[1..-1]
+  people.map! { |p| p.split("\t").map { |attr| attr.present? ? attr : nil } }
   people.each do |person|
     person_hash = Hash[PersonWithAssociations::KEYS.zip(person)]
     begin

@@ -37,4 +37,16 @@ FactoryGirl.define do
     
     association :grave
   end
+  
+  factory :empty_person, class: Person do
+    association :grave
+    
+    factory :only_notes do
+      notes 'bla bla'
+    end
+    
+    factory :only_description do
+      description 'qwerty'
+    end
+  end
 end

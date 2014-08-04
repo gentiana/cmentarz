@@ -22,7 +22,22 @@ RSpec.describe Person, :type => :model do
     it { should respond_to_methods(fields, associations, other_methods) }
   end
   
-  context "full name" do
+  describe ".any_info" do
+    let!(:empty) { create(:empty_person) }
+    let!(:with_date) { create(:empty_person, birth_date: create(:date)) }
+    let!(:only_notes) { create(:only_notes) }
+    let!(:only_description) { create(:only_description) }
+    
+    it "should return only people with some publicly accessible information" do
+      any_info = Person.any_info
+      expect(any_info).to include(with_date)
+      expect(any_info).to include(only_description)
+      expect(any_info).not_to include(empty)
+      expect(any_info).not_to include(only_notes)
+    end
+  end
+  
+  describe "#full name" do
     its(:full_name) { should eq "Alicja Grzybowska (Piwowarczyk)"}
     specify "is correct without family name" do
       person.family_name = nil
