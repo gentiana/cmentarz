@@ -54,7 +54,7 @@ FactoryGirl.define do
   end
   
   factory :death_date do
-    year 1956
+    year 2013
     month 12
     day 1
     association :person

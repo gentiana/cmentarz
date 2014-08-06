@@ -58,7 +58,7 @@ RSpec.describe Person, :type => :model do
   
   specify "must be born before dies" do
     person.birth_date = build(:date)
-    person.death_date = build(:death_date)
+    person.death_date = build(:death_date, year: 1956)
     expect(person).not_to be_valid
   end
 end

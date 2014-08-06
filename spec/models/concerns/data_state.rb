@@ -14,4 +14,16 @@ shared_examples_for "data state" do
     subject.save
     expect(subject.class.with_data_state(:parish_books)).to include(subject)
   end
+  
+  describe "#data_states" do
+    it "should return empty string when no states" do
+      subject.data_state = []
+      expect(subject.data_states).to eq ""
+    end
+    
+    it "should return translated and joined data states" do
+      subject.data_state = [:checked, :parish_books]
+      expect(subject.data_states).to eq "sprawdzone, na podstawie ksiąg parafialnych"
+    end
+  end
 end

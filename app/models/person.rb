@@ -1,6 +1,9 @@
 class Person < ActiveRecord::Base
   include DataState
   
+  PUBLIC_ATTRIBUTES = [:first_name, :last_name, :family_name, :birth_date,
+                       :death_date, :lived, :description]
+  
   belongs_to :grave
   validates :grave, presence: true
   validates :lived, numericality: {greater_than_or_equal_to: 0}, allow_nil: true
@@ -27,7 +30,11 @@ class Person < ActiveRecord::Base
     end
   end
   
-
+  def to_param
+    "#{id} #{full_name}".parameterize
+  end
+  
+  
   private
   
   def family_name_in_parenthesis

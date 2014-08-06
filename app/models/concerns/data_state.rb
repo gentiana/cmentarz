@@ -6,5 +6,11 @@ module DataState
     bitmask :data_state, as: [:checked, :auto, :incomplete, :parish_books,
                               :user_nonchecked, :to_complete_manually,
                               :inflected_surname]
+    
+    def data_states
+      data_state.map do |state|
+        I18n.t "data_states.#{ state }"
+      end.join(', ')
+    end
   end
 end
