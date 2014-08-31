@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   # are not assigned to any quarters, and there can be people we know they are
   # buried in this cementary, but don't know in which grave. 
   resources :quarters
-  resources :graves
+  resources :graves do
+    get :names, on: :collection
+  end
   resources :people
   
   root 'people#index'

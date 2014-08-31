@@ -33,15 +33,18 @@ module CustomDate
   end
   
   def valid_date
-    errors[:base] << "Date is invalid" if day unless month
+    invalid_msg = I18n.t('errors.invalid_date', default: "Date is invalid")
+    future_msg = I18n.t('errors.future_date', default: "Can't be a future date")
+    
+    errors[:base] << invalid_msg if day unless month
     y = year or return  # presence of year is already validated in another place
     m = month || 1
     d = day || 1
     begin
       date = Date.new(y, m, d)
-      errors[:base] << "Can't be a future date" if date > Time.now
+      errors[:base] << future_msg if date > Time.now
     rescue ArgumentError
-      errors[:base] << "Date is invalid"
+      errors[:base] << invalid_msg unless errors[:base].include? invalid_msg
     end
   end
   
@@ -54,5 +57,13 @@ module CustomDate
     m1 = m2 = 1 unless m1 && m2
     
     Date.new(year, m1, d1) <=> Date.new(other.year, m2, d2)
+  end
+  
+  def set(params)
+    if params
+      update(params)
+    else
+      destroy
+    end
   end
 end

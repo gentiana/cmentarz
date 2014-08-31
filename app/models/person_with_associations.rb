@@ -33,8 +33,8 @@ class PersonWithAssociations
   end
   
   def add_person
-    person_params = @params.select { |k, v| Person.attribute_method? k }
-    @person= @grave.people.create!(person_params)
+    person_params = @params.select { |k, v| Person::FIELDS.include? k }
+    @person = @grave.people.create!(person_params)
   end
   
   def add_birth_date

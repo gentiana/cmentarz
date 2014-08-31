@@ -1,0 +1,7 @@
+- if show_info
+  .error_list
+    = t 'errors.form_errors'
+    - if messages.any?
+      %ul
+        - messages.each do |msg|
+          %li= msg

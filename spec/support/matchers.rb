@@ -21,3 +21,9 @@ RSpec::Matchers.define :have_links do |*links|
     end
   end
 end
+
+RSpec::Matchers.define :have_grave_select do |*options|
+  match do |page|
+    page.has_select? simple_label(:grave), options: options
+  end
+end

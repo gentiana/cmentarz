@@ -17,6 +17,7 @@ RSpec.describe Grave, :type => :model do
     other = [:set_grave_type!]
     
     it { should respond_to_methods(fields, associations, enum, other) }
+    its(:class) { should respond_to :quarterless, :names }
   end
   
   it_behaves_like "data state"
@@ -33,6 +34,25 @@ RSpec.describe Grave, :type => :model do
     specify "number can't be negative" do
       grave.number = '-5'
       expect(grave).not_to be_valid
+    end
+  end
+  
+  describe ".names" do
+    let!(:quarterless) { create(:quarterless_grave) }
+    let!(:g1) { create(:grave) }
+    let!(:g2) { create(:grave, quarter: g1.quarter) }
+    let!(:g3) { create(:grave) }
+    
+    it "returns names and ids of graves in given quarter" do
+      graves = [{id: g1.id, name: g1.name}, {id: g2.id, name: g2.name}]
+      expect(Grave.names(g1.quarter.id)).to eq graves
+    end
+    
+    context "when the quarter is blank" do
+      it "returns names and ids of all graves without quarter" do
+        quarterless_hash = {id: quarterless.id, name: quarterless.name}
+        expect(Grave.names('')).to eq [quarterless_hash]
+      end
     end
   end
   

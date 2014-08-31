@@ -41,6 +41,11 @@ class GravesController < ApplicationController
     redirect_to graves_path, notice: destroy_notice(:grave)
   end
   
+  def names
+    graves = Grave.names(params[:quarter_id])
+    render json: graves
+  end
+  
   
   private
   

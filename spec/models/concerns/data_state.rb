@@ -15,6 +15,14 @@ shared_examples_for "data state" do
     expect(subject.class.with_data_state(:parish_books)).to include(subject)
   end
   
+  describe ".check_boxes_array" do
+    it "should map all data states" do
+      states = subject.class.check_boxes_array
+      keys = states.map(&:first)
+      expect(keys.sort).to eq subject.class.values_for_data_state.sort
+    end
+  end
+  
   describe "#data_states" do
     it "should return empty string when no states" do
       subject.data_state = []

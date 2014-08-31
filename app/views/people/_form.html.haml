@@ -1,40 +1,31 @@
-= form_for @person, :html => { :class => 'form-horizontal' } do |f|
-  .control-group
-    = f.label :grave_id, :class => 'control-label'
-    .controls
-      = f.text_field :grave_id, :class => 'text_field'
-  .control-group
-    = f.label :first_name, :class => 'control-label'
-    .controls
-      = f.text_field :first_name, :class => 'text_field'
-  .control-group
-    = f.label :last_name, :class => 'control-label'
-    .controls
-      = f.text_field :last_name, :class => 'text_field'
-  .control-group
-    = f.label :family_name, :class => 'control-label'
-    .controls
-      = f.text_field :family_name, :class => 'text_field'
-  .control-group
-    = f.label :description, :class => 'control-label'
-    .controls
-      = f.text_field :description, :class => 'text_field'
-  .control-group
-    = f.label :lived, :class => 'control-label'
-    .controls
-      = f.text_field :lived, :class => 'text_field'
-  .control-group
-    = f.label :raw_record, :class => 'control-label'
-    .controls
-      = f.text_field :raw_record, :class => 'text_field'
-  .control-group
-    = f.label :data_state, :class => 'control-label'
-    .controls
-      = f.text_field :data_state, :class => 'text_field'
-  .control-group
-    = f.label :notes, :class => 'control-label'
-    .controls
-      = f.text_field :notes, :class => 'text_field'
+= render 'shared/errors', messages:  @person.errors[:base],
+                          show_info: @person.errors_with_dates?
+
+= simple_form_for @person do |f|
+  = f.input :quarter, quarter_select_options
+  = f.association :grave, collection: @person.quarter_graves
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :family_name
+  = f.input :lived
+  = f.input :description
+  = f.input :raw_record
+  = f.label :data_state
+  %br
+  = f.collection_check_boxes :data_state, Person.check_boxes_array, :first, :last
+  = f.input :notes
+  
+  = f.label :birth_date
+  %br
+  = f.fields_for :birth_date, @person.birth_date do |bd|
+    = render 'date_fields', f: bd
+    
+  %br
+  = f.label :death_date
+  %br
+  = f.fields_for :death_date, @person.death_date do |dd|
+    = render 'date_fields', f: dd
+  
   .form-actions
-    = f.submit nil, :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), people_path, :class => 'btn'
+    = f.submit nil, class: 'btn btn-primary'
+    = cancel_link(@person.new_record? ? people_path : person_path(@person))

@@ -5,10 +5,25 @@ pl:
         quarter: Kwatera / Pas
         number: Numer
         description: Opis
-        family_name: Nazwisko rodowe
         notes: Uwagi
         name: Nazwa
+        first_name: Imię
+        last_name: Nazwisko
+        family_name: Nazwisko panieńskie / rodowe
+        birth_date: Data urodzenia (dd-mm-yyyy)
+        death_date: Data śmierci (dd-mm-yyyy)
+        date_hint: Możesz podać pełną datę, rok i miesiąc albo tylko rok
+        day: dzień
+        month: miesiąc
+        year: rok
+        lived: Przeżył(a) lat
+        description: Opis
+        grave: Grób
+        raw_record: W starej bazie
+        notes: Uwagi
+        data_state: Stan danych
         short_name: Skrócona nazwa
+        
     required:
       text: 'wymagane'
       mark: '*'

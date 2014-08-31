@@ -5,7 +5,7 @@ FactoryGirl.define do
     year 2012
     association :person
     
-    factory :invalid_date do
+    factory :invalid_date do  # invalid because there's no 29.02 in 2013
       year 2013
     end
     
@@ -20,6 +20,12 @@ FactoryGirl.define do
       year '   '
       month 'cat'
       day [6, 6, 6]
+    end
+    
+    factory :empty_date do
+      year ''
+      month ''
+      day ''
     end
   end
   

@@ -26,6 +26,10 @@ FactoryGirl.define do
     end
   end
   
+  factory :quarterless_grave, class: Grave do
+    number '1234'
+  end
+  
   factory :person do
     first_name 'Alicja'
     last_name 'Grzybowska'
@@ -36,6 +40,16 @@ FactoryGirl.define do
     notes 'zażółć gęślą jaźń'
     
     association :grave
+    
+    factory :updated_person do
+      first_name 'Elżbieta'
+      last_name 'Nowak'
+      family_name 'Kowalska'
+      description 'qwerty'
+      lived 34
+      raw_record 'jjdsioa gore fj dsfiud saufisa'
+      notes 'isojfa ajorea hiuas'
+    end
   end
   
   factory :empty_person, class: Person do

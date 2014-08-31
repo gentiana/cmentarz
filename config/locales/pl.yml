@@ -38,3 +38,13 @@ pl:
     quarters: Kwatery
     gallery: Galeria
     logout: Wyloguj
+  errors:
+    form_errors: Formularz zawiera błędy
+    death_before_birth: Data śmierci nie może poprzedzać daty urodzenia
+    future_date: Data nie może być w przyszłości
+    invalid_date: Niepoprawda data
+  attributes:
+    day: dzień
+    month: miesiąc
+    year: rok
+    

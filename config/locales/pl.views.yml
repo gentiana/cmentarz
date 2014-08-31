@@ -50,7 +50,7 @@ pl:
     show:
       first_name: Imię
       last_name: Nazwisko
-      family_name: Nazwisko panieńskie
+      family_name: Nazwisko panieńskie / rodowe
       birth_date: Data urodzenia
       death_date: Data śmierci
       lived: Przeżył(a) lat

@@ -24,6 +24,7 @@ gem 'bootstrap-will_paginate'
 gem 'haml-rails'
 gem 'bitmask_attributes'
 gem 'simple_form'
+gem 'better_errors', group: :development
 
 group :development, :test do
   gem 'spring-commands-rspec'
@@ -32,6 +33,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-spring'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
+  gem 'pry-byebug'
 end
 
 group :test do

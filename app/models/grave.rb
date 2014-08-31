@@ -9,6 +9,17 @@ class Grave < ActiveRecord::Base
   
   enum grave_type: {single: 0, family: 1}
   
+  scope :quarterless, -> { where quarter: nil }
+  
+  def self.names(quarter_id)
+    graves = if quarter_id.present?
+      where(quarter_id: quarter_id).sort
+    else
+      quarterless.sort
+    end
+    graves.map { |g| {id: g.id, name: g.name} }
+  end
+  
   # it shouldn't be callback, user should be able to set grave type as he wants
   def set_grave_type!
     if people.count > 1

@@ -37,3 +37,19 @@ end
 def saop
   save_and_open_page
 end
+
+def bool(object)
+  if object
+    true
+  else
+    false
+  end
+end
+
+def fill_in_date(field_prefix, factory)
+  date = attributes_for(factory)
+  date.each do |field, value|
+    fill_in "#{field_prefix}_#{field}", with: value
+  end
+end
+

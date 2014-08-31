@@ -4,6 +4,9 @@ class Person < ActiveRecord::Base
   PUBLIC_ATTRIBUTES = [:first_name, :last_name, :family_name, :birth_date,
                        :death_date, :lived, :description]
   
+  FIELDS = [:first_name, :last_name, :family_name, :lived, :raw_record,
+            :data_state, :notes]
+  
   belongs_to :grave
   validates :grave, presence: true
   validates :lived, numericality: {greater_than_or_equal_to: 0}, allow_nil: true
@@ -34,6 +37,19 @@ class Person < ActiveRecord::Base
     "#{id} #{full_name}".parameterize
   end
   
+  def errors_with_dates?
+    errors.any? || (birth_date && birth_date.errors.any?) ||
+    (death_date && death_date.errors.any?)
+  end
+  
+  def quarter
+    grave.quarter if grave
+  end
+  
+  def quarter_graves
+    quarter ? quarter.graves.sort : Grave.quarterless.sort
+  end
+  
   
   private
   
@@ -42,8 +58,11 @@ class Person < ActiveRecord::Base
   end
   
   def birth_before_death
-    if birth_date && death_date && !birth_date.could_be_before(death_date)
-      errors[:base] << "A man must be born before he dies"
+    birth_date_ok = birth_date && !birth_date.destroyed? && birth_date.valid?
+    death_date_ok = death_date && !death_date.destroyed? && death_date.valid?
+    if birth_date_ok && death_date_ok && !birth_date.could_be_before(death_date)
+      errors[:base] << I18n.t('errors.death_before_birth',
+                              default: "A man must be born before he dies")
     end
   end
 end

@@ -1,0 +1,12 @@
+%p.hint= t 'simple_form.labels.defaults.date_hint'
+- if f.object && f.object.errors.any?
+  .error_list
+    - f.object.errors.full_messages.each do |msg|
+      = msg
+      %br
+
+= f.number_field :day, class: :day
+= '-'
+= f.number_field :month, class: :month
+= '-'
+= f.number_field :year, class: :year
