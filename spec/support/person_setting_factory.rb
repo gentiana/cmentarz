@@ -15,6 +15,16 @@ class PersonSettingFactory
     PersonSetting.new(person, all_wrong_person_params, wrong_date, wrong_date_params)
   end
   
+  def new_person_with_birth_date
+    PersonSetting.new(new_person, person_params, date, empty_date)
+  end
+  
+  def wrong_new_person
+    PersonSetting.new(
+      new_person, all_wrong_person_params, wrong_date, wrong_date_params
+    )
+  end
+  
   
   private
   
@@ -27,11 +37,19 @@ class PersonSettingFactory
   end
   
   def person_params
-    { first_name: "Ala" }
+    {
+      first_name: "Ala",
+      last_name: "",
+      grave_id: FactoryGirl.create(:grave).id
+    }
   end
   
   def all_wrong_person_params
     { lived: 'd3' }
+  end
+  
+  def new_person
+    Person.new
   end
   
   def date

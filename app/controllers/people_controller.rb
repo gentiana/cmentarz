@@ -14,7 +14,13 @@ class PeopleController < ApplicationController
   end
   
   def create
-    
+    @person = Person.new
+    setting = PersonSetting.new(@person, person_params, birth_params, death_params)
+    if setting.create
+      redirect_to @person, notice: create_notice(:person)
+    else
+      render :new
+    end
   end
   
   def edit

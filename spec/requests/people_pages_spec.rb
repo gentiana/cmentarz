@@ -58,12 +58,13 @@ RSpec.describe "People Pages", :type => :request do
     let(:update_txt) { "Aktualizuj osobę" }
     let(:edit_txt) { "Edytuj" }
     
-    before do
-      sign_in
-      visit edit_person_path(person)
-    end
+    before { sign_in }
     
     it "should update person" do
+      visit person_path(person)
+      click_link edit_txt
+      expect(page).to have_title edit_txt
+      
       updated_person.each do |field, value|
         fill_in simple_label(field), with: value
       end
@@ -72,30 +73,24 @@ RSpec.describe "People Pages", :type => :request do
       check 'odmienione nazwisko'
       uncheck 'sprawdzone'
       click_button update_txt
+      
       expect(page).not_to have_title edit_txt
       expect(page).to have_contents updated_person.values, 'odmienione nazwisko'
       expect(page).not_to have_content 'sprawdzone'
+      
       click_link edit_txt
       fill_in simple_label(:family_name), with: ''
       fill_in_date 'person_death_date', :empty_date
       click_button update_txt
+      
       expect(page).not_to have_title edit_txt
       expect(page).not_to have_contents simple_label(:family_name),
                                         simple_label(:death_date)
     end
     
     it "should display errors in form" do
-      fill_in_date 'person_birth_date', :death_date
-      fill_in_date 'person_death_date', :date
-      fill_in simple_label(:lived), with: 'qwerty'
-      click_button update_txt
-      expect(page).to have_title edit_txt
-      expect(page).to have_selector ".error_list"
-      fill_in "person_birth_date_year", with: 1234
-      fill_in simple_label(:lived), with: '123'
-      click_button update_txt
-      expect(page).not_to have_title edit_txt
-      expect(page).to have_contents '1234', '123'
+      visit edit_person_path(person)
+      expect(page).to display_errors(edit_txt, update_txt)
     end
     
     describe "grave select", js: true do
@@ -104,9 +99,8 @@ RSpec.describe "People Pages", :type => :request do
       let!(:g2) { create(:grave, quarter: g1.quarter) }
       let!(:g3) { create(:grave) }
       
-      before { visit edit_person_path(person) }
-      
       it "changes grave select content after selecting another quarter" do
+        visit edit_person_path(person)
         expect(page).to have_grave_select("", person.grave.name, g1.name, g2.name)
         select "", from: simple_label(:quarter)
         expect(page).to have_grave_select("", quarterless.name)
@@ -116,6 +110,58 @@ RSpec.describe "People Pages", :type => :request do
         click_button update_txt
         expect(page).not_to have_title edit_txt
         expect(page).to have_content g3.name
+      end
+    end
+  end
+  
+  describe "new" do
+    let!(:grave) { create(:quarterless_grave) }
+    let(:person) { attributes_for(:person) }
+    let(:add_txt) { "Dodaj osobę" }
+    let(:create_txt) { "Utwórz osobę" }
+    
+    before { sign_in }
+    
+    it "should create person" do
+      visit people_path
+      click_link add_txt
+      expect(page).to have_title(add_txt)
+      
+      person.each do |field, value|
+        fill_in simple_label(field), with: value
+      end
+      select grave.name, from: simple_label(:grave)
+      fill_in_date 'person_birth_date', :date
+      fill_in_date 'person_death_date', :death_date
+      check 'sprawdzone'
+      click_button create_txt
+      
+      expect(page).not_to have_title add_txt
+      person_attrs =
+        [person.values, 'sprawdzone', build(:date), build(:death_date)]
+      expect(page).to have_contents person_attrs
+    end
+    
+    it "should display errors in form" do
+      visit new_person_path
+      select grave.name, from: simple_label(:grave)
+      expect(page).to display_errors(add_txt, create_txt)
+    end
+    
+    describe "grave select", js: true do
+      let!(:g1) { create(:grave) }
+      let!(:g2) { create(:grave, quarter: g1.quarter) }
+      let!(:g3) { create(:grave) }
+      
+      it "changes grave select content after selecting another quarter" do
+        visit new_person_path
+        expect(page).to have_grave_select("", grave.name)
+        select g1.quarter.name, from: simple_label(:quarter)
+        expect(page).to have_grave_select("", g1.name, g2.name)
+        select g1.name, from: simple_label(:grave)
+        click_button create_txt
+        expect(page).not_to have_title add_txt
+        expect(page).to have_content g1.name
       end
     end
   end

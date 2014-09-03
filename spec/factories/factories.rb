@@ -27,7 +27,7 @@ FactoryGirl.define do
   end
   
   factory :quarterless_grave, class: Grave do
-    number '1234'
+    sequence(:number) { |i| 1234 + i }
   end
   
   factory :person do
