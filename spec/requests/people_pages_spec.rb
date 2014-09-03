@@ -4,16 +4,16 @@ RSpec.describe "People Pages", :type => :request do
   subject { page }
   
   describe "index" do
-    before { visit people_path }
+    let!(:person) { create(:person) }
     let(:title) { t 'people.index.title' }
     let(:admin_actions) { [t('helpers.links.edit'), t('helpers.links.destroy'),
                            t('people.index.new')] }
     
+    before { visit people_path }
+    
     it_behaves_like "index page"
     
     specify "admin actions are visible for admin only" do
-      create(:person)
-      visit people_path
       expect(page).not_to have_links admin_actions
       sign_in
       visit people_path
@@ -21,8 +21,8 @@ RSpec.describe "People Pages", :type => :request do
     end
     
     it "should show people data" do
-      person = create(:person, birth_date: build(:date),
-                               death_date: build(:death_date))
+      create(:date, person: person)
+      create(:death_date, person: person)
       visit people_path
       expect(page).to have_link t('people.index.grave'),
                                 href: grave_path(person.grave)
@@ -30,6 +30,14 @@ RSpec.describe "People Pages", :type => :request do
                                 href: person_path(person)
       expect(page).to have_contents([person.birth_date.to_s,
                                      person.death_date.to_s])
+    end
+    
+    it "has destroy links" do
+      sign_in
+      visit people_path
+      expect do
+        click_link t('helpers.links.destroy'), match: :first
+      end.to change(Person, :count).by(-1)
     end
   end
   
@@ -49,6 +57,15 @@ RSpec.describe "People Pages", :type => :request do
       expect(page).to have_content person.full_name
       expect(page).to have_contents public_contents
       expect(page).to have_link person.grave.name
+    end
+    
+    it "has destroy link" do
+      sign_in
+      visit person_path(person)
+      expect do
+        click_link t('helpers.links.destroy'), match: :first
+      end.to change(Person, :count).by(-1)
+      expect(page).to have_title t('people.index.title')
     end
   end
   

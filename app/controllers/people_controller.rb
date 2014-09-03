@@ -39,6 +39,7 @@ class PeopleController < ApplicationController
   
   def destroy
     Person.find(params[:id]).destroy
+    redirect_to people_path, notice: destroy_notice(:person)
   end
   
   private
