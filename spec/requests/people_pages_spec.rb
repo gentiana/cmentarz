@@ -161,8 +161,13 @@ RSpec.describe "People Pages", :type => :request do
     
     it "should display errors in form" do
       visit new_person_path
-      select grave.name, from: simple_label(:grave)
       expect(page).to display_errors(add_txt, create_txt)
+    end
+    
+    it "should create person without grave" do
+      visit new_person_path
+      click_button create_txt
+      expect(page).not_to have_title add_txt
     end
     
     describe "grave select", js: true do

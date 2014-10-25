@@ -7,7 +7,6 @@ RSpec.describe Person, :type => :model do
   subject { person }
   it { should be_valid }
   
-  it { should validate_presence_of :grave }
   it { should have_one(:birth_date).dependent(:destroy) }
   it { should have_one(:death_date).dependent(:destroy) }
   

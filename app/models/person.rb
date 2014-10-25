@@ -8,7 +8,6 @@ class Person < ActiveRecord::Base
             :data_state, :notes]
   
   belongs_to :grave
-  validates :grave, presence: true
   validates :lived, numericality: {greater_than_or_equal_to: 0}, allow_nil: true
   has_one :birth_date, dependent: :destroy
   has_one :death_date, dependent: :destroy

@@ -9,9 +9,10 @@
       = field_label attr
       = @person.send(attr)
 
-%p
-  = field_label :grave
-  = link_with_name @person.grave
+- if @person.grave
+  %p
+    = field_label :grave
+    = link_with_name @person.grave
 
 - if admin?
   - admin_attrs = [:notes, :raw_record]
