@@ -45,7 +45,7 @@ class PersonSettingFactory
   end
   
   def all_wrong_person_params
-    { lived: 'd3' }
+    { lived: -7 }
   end
   
   def new_person
