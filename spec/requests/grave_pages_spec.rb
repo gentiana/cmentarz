@@ -31,6 +31,16 @@ RSpec.describe "Grave Pages", :type => :request do
         expect(page).to have_link quarter.name
         expect(page).to have_link grave.number
       end
+      
+      it "should list quarterless graves" do
+        subtitle = t 'graves.index.quarterless'
+        visit graves_path
+        expect(page).not_to have_content subtitle
+        quarterless = create(:quarterless_grave)
+        visit graves_path
+        expect(page).to have_content subtitle
+        expect(page).to have_link quarterless.number
+      end
     end
   end
   

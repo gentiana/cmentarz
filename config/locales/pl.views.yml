@@ -7,6 +7,7 @@ pl:
     index:
       title: Lista grobów
       new: Nowy grób
+      quarterless: Poza kwaterą
     show:
       quarter: Kwatera / pas
       no_quarter: nie przypisano

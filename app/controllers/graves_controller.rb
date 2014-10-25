@@ -4,6 +4,7 @@ class GravesController < ApplicationController
   def index
     @quarters = Quarter.includes(:graves).select { |q| q.graves.any? }
     @quarters = Quarter.sort_by_name(@quarters)
+    @quarterless = Grave.quarterless.sort
   end
   
   def show

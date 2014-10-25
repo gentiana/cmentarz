@@ -10,3 +10,8 @@
   %h2= link_with_name quarter
   - quarter.graves.sort.each do |grave|
     = link_to grave.number, grave
+    
+- if @quarterless.any?
+  %h2= t '.quarterless'
+  - @quarterless.each do |grave|
+    = link_to grave.number, grave
