@@ -1,28 +1,15 @@
-== README
+== Cmentarz
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Prosty system do katalogowania grobów i pochowanych osób.
 
-Things you may want to cover:
+Działa na heroku[https://cmentarz.herokuapp.com/].
 
-* Ruby version
+TODO:
 
-* System dependencies
+* wyszukiwarka
 
-* Configuration
+* zdjęcia grobów
 
-* Database creation
+* mapki
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* statyczne podstrony
