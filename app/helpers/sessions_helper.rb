@@ -4,10 +4,10 @@ module SessionsHelper
   end
 
   def authorize
-    unless admin?
-      flash[:error] = 'Unauthorized access'
-      redirect_to root_url
-    end
+    return if admin?
+
+    flash[:error] = 'Unauthorized access'
+    redirect_to root_url
   end
 
   def admin_digest

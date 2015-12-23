@@ -19,11 +19,12 @@ class Quarter < ActiveRecord::Base
   end
 
   def self.create_from_short_name!(sn)
-    name = if sn =~ /\Ak(\d+)\z/
-             "Kwatera #{$+}"
-           elsif sn =~ /\Ap(\d+)\z/
-             "Pas #{$+}"
-    end
+    name =
+      if sn =~ /\Ak(\d+)\z/
+        "Kwatera #{$+}"
+      elsif sn =~ /\Ap(\d+)\z/
+        "Pas #{$+}"
+      end
     Quarter.create!(name: name, short_name: sn)
   end
 end

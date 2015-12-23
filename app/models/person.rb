@@ -58,9 +58,9 @@ class Person < ActiveRecord::Base
   def birth_before_death
     birth_date_ok = birth_date && !birth_date.destroyed? && birth_date.valid?
     death_date_ok = death_date && !death_date.destroyed? && death_date.valid?
-    if birth_date_ok && death_date_ok && !birth_date.could_be_before(death_date)
-      errors[:base] << I18n.t('errors.death_before_birth',
-                              default: 'A man must be born before he dies')
-    end
+    return unless birth_date_ok && death_date_ok && !birth_date.could_be_before(death_date)
+
+    errors[:base] << I18n.t('errors.death_before_birth',
+                            default: 'A man must be born before he dies')
   end
 end

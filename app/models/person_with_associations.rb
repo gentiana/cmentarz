@@ -37,18 +37,16 @@ class PersonWithAssociations
   end
 
   def add_birth_date
-    if @params[:birth_year].present?
-      @person.create_birth_date!(year: @params[:birth_year],
-                                 month: @params[:birth_month],
-                                 day: @params[:birth_day])
-    end
+    return unless @params[:birth_year].present?
+    @person.create_birth_date!(year: @params[:birth_year],
+                               month: @params[:birth_month],
+                               day: @params[:birth_day])
   end
 
   def add_death_date
-    if @params[:death_year].present?
-      @person.create_death_date!(year: @params[:death_year],
-                                 month: @params[:death_month],
-                                 day: @params[:death_day])
-    end
+    return unless @params[:death_year].present?
+    @person.create_death_date!(year: @params[:death_year],
+                                month: @params[:death_month],
+                                day: @params[:death_day])
   end
 end

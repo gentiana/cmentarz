@@ -12,11 +12,12 @@ class Grave < ActiveRecord::Base
   scope :quarterless, -> { where quarter: nil }
 
   def self.names(quarter_id)
-    graves = if quarter_id.present?
-               where(quarter_id: quarter_id).sort
-             else
-               quarterless.sort
-    end
+    graves =
+      if quarter_id.present?
+        where(quarter_id: quarter_id).sort
+      else
+        quarterless.sort
+      end
     graves.map { |g| { id: g.id, name: g.name } }
   end
 
@@ -33,7 +34,7 @@ class Grave < ActiveRecord::Base
     if quarter_id == other.quarter_id
       # graves where 'number' is a name like "Tomb of the Unknown Soldier"
       # should be listed first - to_int returns -1
-      if is_int?(number) || is_int?(other.number)
+      if int?(number) || int?(other.number)
         to_int(number) <=> to_int(other.number)
       else
         number <=> other.number
@@ -44,12 +45,12 @@ class Grave < ActiveRecord::Base
   end
 
   def name
-    is_int?(number) ? "Grób nr #{number}" : number
+    int?(number) ? "Grób nr #{number}" : number
   end
 
   private
 
-  def is_int?(str)
+  def int?(str)
     Integer(str)
   rescue
     false
@@ -62,6 +63,6 @@ class Grave < ActiveRecord::Base
   end
 
   def nonnegative_number
-    errors[:number] << "can't be negative" if is_int?(number) && number.to_i < 0
+    errors[:number] << "can't be negative" if int?(number) && number.to_i < 0
   end
 end
