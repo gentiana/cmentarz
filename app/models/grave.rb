@@ -31,14 +31,10 @@ class Grave < ActiveRecord::Base
   end
 
   def <=>(other)
+    return unless other.is_a? Grave
+
     if quarter_id == other.quarter_id
-      # graves where 'number' is a name like "Tomb of the Unknown Soldier"
-      # should be listed first - to_int returns -1
-      if int?(number) || int?(other.number)
-        to_int(number) <=> to_int(other.number)
-      else
-        number <=> other.number
-      end
+      compare_numbers(other)
     else
       quarter_id <=> other.quarter_id
     end
@@ -64,5 +60,16 @@ class Grave < ActiveRecord::Base
 
   def nonnegative_number
     errors[:number] << "can't be negative" if int?(number) && number.to_i < 0
+  end
+
+  def compare_numbers(other)
+    # graves where 'number' is a name like "Tomb of the Unknown Soldier"
+    # should be listed first - to_int returns -1
+
+    if int?(number) || int?(other.number)
+      to_int(number) <=> to_int(other.number)
+    else
+      number <=> other.number
+    end
   end
 end
