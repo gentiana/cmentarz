@@ -2,73 +2,72 @@ class PersonSettingFactory
   def empty_birth_params
     PersonSetting.new(person, person_params, empty_date, date)
   end
-  
+
   def delete_birth_date
     PersonSetting.new(person_with_birth_date, person_params, empty_date, date)
   end
-  
+
   def update_birth_date
     PersonSetting.new(person_with_birth_date, person_params, date, empty_date)
   end
-  
+
   def everything_wrong
     PersonSetting.new(person, all_wrong_person_params, wrong_date, wrong_date_params)
   end
-  
+
   def new_person_with_birth_date
     PersonSetting.new(new_person, person_params, date, empty_date)
   end
-  
+
   def wrong_new_person
     PersonSetting.new(
       new_person, all_wrong_person_params, wrong_date, wrong_date_params
     )
   end
-  
-  
+
   private
-  
+
   def person
     FactoryGirl.create(:person)
   end
-  
+
   def person_with_birth_date
     FactoryGirl.create(:person, birth_date: FactoryGirl.create(:date))
   end
-  
+
   def person_params
     {
-      first_name: "Ala",
-      last_name: "",
+      first_name: 'Ala',
+      last_name: '',
       grave_id: FactoryGirl.create(:grave).id
     }
   end
-  
+
   def all_wrong_person_params
     { lived: -7 }
   end
-  
+
   def new_person
     Person.new
   end
-  
+
   def date
-    { year: "1978", month: "3", day: "14" }
+    { year: '1978', month: '3', day: '14' }
   end
-  
+
   def earlier_date
-    { year: "1878", month: "3", day: "14" }
+    { year: '1878', month: '3', day: '14' }
   end
-  
+
   def wrong_date
-    { year: "1878", month: "2", day: "30" }
+    { year: '1878', month: '2', day: '30' }
   end
-  
+
   def wrong_date_params
-    { year: "999", month: "13", day: "kot" }
+    { year: '999', month: '13', day: 'kot' }
   end
-  
+
   def empty_date
-    { year: "", month: "", day: "" }
+    { year: '', month: '', day: '' }
   end
 end

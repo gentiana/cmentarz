@@ -1,10 +1,10 @@
-shared_examples "index page" do
+shared_examples 'index page' do
   it { should have_title page_title(title) }
   it { should have_selector 'h1', text: title }
 end
 
-shared_examples "with admin content" do
-  it "shows admin stuff only for admin" do
+shared_examples 'with admin content' do
+  it 'shows admin stuff only for admin' do
     visit path
     expect(page).not_to have_contents admin_only
     expect(page).not_to have_links admin_actions

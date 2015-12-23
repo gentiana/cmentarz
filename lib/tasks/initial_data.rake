@@ -1,5 +1,5 @@
 namespace :db do
-  desc "Fill database with initial data"
+  desc 'Fill database with initial data'
   task populate: :environment do
     create_quarters
     create_people_and_graves
@@ -10,14 +10,14 @@ end
 def create_quarters
   Quarter.transaction do
     10.times do |i|
-      unless Quarter.find_by(short_name: "k#{i+1}")
-        Quarter.create!(name: "Kwatera #{i+1}", short_name: "k#{i+1}")
+      unless Quarter.find_by(short_name: "k#{i + 1}")
+        Quarter.create!(name: "Kwatera #{i + 1}", short_name: "k#{i + 1}")
       end
     end
-    
+
     7.times do |i|
-      unless Quarter.find_by(short_name: "p#{i+1}")
-        Quarter.create!(name: "Pas #{i+1}", short_name: "p#{i+1}")
+      unless Quarter.find_by(short_name: "p#{i + 1}")
+        Quarter.create!(name: "Pas #{i + 1}", short_name: "p#{i + 1}")
       end
     end
   end

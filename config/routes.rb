@@ -2,22 +2,18 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new'
   delete 'logout' => 'sessions#destroy'
   resources :sessions, only: [:new, :create, :destroy]
-  
+
   # Quarters, graves and people aren't nested, because there can be graves, which
   # are not assigned to any quarters, and there can be people we know they are
-  # buried in this cementary, but don't know in which grave. 
+  # buried in this cementary, but don't know in which grave.
   resources :quarters
   resources :graves do
     get :names, on: :collection
   end
   resources :people
-  
+
   root 'people#index'
-  
-  
-  
-  
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

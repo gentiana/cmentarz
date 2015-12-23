@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '2.2.1'
-#ruby-gemset=cmentarz
+# ruby-gemset=cmentarz
 
 gem 'rails', '4.1.6'
 gem 'pg'
@@ -11,8 +11,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
+gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'spring', group: :development
 
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
@@ -34,12 +34,13 @@ group :development, :test do
   gem 'guard-spring'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'pry-byebug'
+  gem 'rubocop'
 end
 
 group :test do
   gem 'selenium-webdriver', '2.46.2'
   gem 'capybara'
-  gem "launchy"
+  gem 'launchy'
   gem 'libnotify'
   gem 'shoulda'
   gem 'factory_girl_rails'
