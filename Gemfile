@@ -37,7 +37,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '2.46.2'
   gem 'capybara'
   gem "launchy"
   gem 'libnotify'
