@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.2.1'
 # ruby-gemset=cmentarz
 
-gem 'rails', '4.1.6'
+gem 'rails', '4.2.5'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
