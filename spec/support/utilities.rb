@@ -52,3 +52,7 @@ def fill_in_date(field_prefix, factory)
     fill_in "#{field_prefix}_#{field}", with: value
   end
 end
+
+def raise_record_invalid
+  raise_exception ActiveRecord::RecordInvalid
+end

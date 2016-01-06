@@ -25,7 +25,7 @@ RSpec.describe Quarter, type: :model do
 
     it 'should raise exception when cannot create' do
       create(:quarter, short_name: 'p3')
-      expect { Quarter.create_from_short_name!('p3') }.to raise_exception
+      expect { Quarter.create_from_short_name!('p3') }.to raise_record_invalid
     end
   end
 

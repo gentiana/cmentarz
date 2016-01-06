@@ -24,7 +24,7 @@ RSpec.describe PersonWithAssociations, type: :model do
 
     describe 'when params are invalid' do
       it 'should raise error' do
-        expect { build(:pwa_invalid).create! }.to raise_error
+        expect { build(:pwa_invalid).create! }.to raise_record_invalid
       end
 
       describe "it shouldn't add any records" do
