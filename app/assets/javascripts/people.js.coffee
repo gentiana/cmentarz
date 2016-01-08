@@ -1,15 +1,25 @@
-ready = ->
-  $('#person_quarter').on 'change', ->
-    quarter_id = @.value
-    $.get "/graves/names", {quarter_id: quarter_id}, updateGraves
+class App.PeopleFormUpdater
+  constructor: (@mainSelect, @subSelect, @url) ->
 
-updateGraves = (graves) ->
-  options = $.map graves, (grave, i) ->
-    new Option grave.name, grave.id
-  
-  empty = new Option "", ""
-  options.unshift empty
-  $('#person_grave_id').html options
+  update: ->
+    @mainSelect.on 'change', =>
+      quarter_id = @mainSelect.val()
+      $.get @url, {quarter_id: quarter_id}, @updateGraves
 
-$(document).ready ready
-$(document).on 'page:load', ready
+  updateGraves: (graves) =>
+    options = for grave in graves
+      new Option grave.name, grave.id
+
+    empty = new Option "", ""
+    options.unshift empty
+    @subSelect.html options
+
+$(document).on 'page:change', ->
+  return unless $('body.people').length > 0
+
+  updater = new App.PeopleFormUpdater(
+    $('#person_quarter')
+    $('#person_grave_id')
+    '/graves/names'
+  )
+  updater.update()
