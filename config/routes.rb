@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   resources :quarters
   resources :graves do
     get :names, on: :collection
+    get :links, on: :collection
   end
-  resources :people
+  resources :people do
+    post :search, on: :collection
+  end
 
   root 'people#index'
 

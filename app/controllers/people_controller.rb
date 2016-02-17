@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :authorize, except: [:index, :show]
+  before_action :authorize, except: [:index, :show, :search]
 
   def index
     @people = Person.any_info.paginate(page: params[:page])
@@ -40,6 +40,11 @@ class PeopleController < ApplicationController
   def destroy
     Person.find(params[:id]).destroy
     redirect_to people_path, notice: destroy_notice(:person)
+  end
+
+  def search
+    @people = Person.search(params[:search])
+    render json: @people
   end
 
   private

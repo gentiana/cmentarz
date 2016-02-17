@@ -24,6 +24,11 @@ class Person < ActiveRecord::Base
            OR death_dates.year IS NOT NULL").order(:last_name)
   end
 
+  def self.search(phrase)
+    where 'LOWER(first_name) LIKE ? OR LOWER(last_name) LIKE ? OR LOWER(family_name) LIKE ?',
+      "%#{phrase.strip.downcase}%", "%#{phrase.strip.downcase}%", "%#{phrase.strip.downcase}%"
+  end
+
   def full_name
     if [first_name, last_name, family_name].any?(&:present?)
       [first_name, last_name, family_name_in_parenthesis].compact.join(' ')

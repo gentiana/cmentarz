@@ -18,7 +18,15 @@ class Grave < ActiveRecord::Base
       else
         quarterless.sort
       end
+
     graves.map { |g| { id: g.id, name: g.name } }
+    # graves.map do |grave|
+    #   {
+    #     id: grave.id,
+    #     name: grave.name,
+    #     path: Rails.application.routes.url_helpers.grave_path(grave)
+    #   }
+    # end.to_json
   end
 
   # it shouldn't be callback, user should be able to set grave type as he wants

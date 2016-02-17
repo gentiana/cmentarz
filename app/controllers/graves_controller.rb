@@ -47,6 +47,18 @@ class GravesController < ApplicationController
     render json: graves
   end
 
+  def links
+    quarter_id = params[:quarter_id]
+    # puts quarter_id
+    @graves = Grave.where(quarter_id: quarter_id)
+    @quarter = Quarter.find(quarter_id)
+    # format.js
+    # respond_to do |format|
+    #   format.json { render json: @graves }
+    #   format.js
+    # end
+  end
+
   private
 
   def grave_params

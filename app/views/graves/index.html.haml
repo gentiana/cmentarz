@@ -2,16 +2,19 @@
 
 - if admin?
   = link_to t('.new'), new_grave_path, class: 'btn btn-primary right'
-  
+
 .page-header
   %h1= t '.title'
 
 - @quarters.each do |quarter|
   %h2= link_with_name quarter
-  - quarter.graves.sort.each do |grave|
-    = link_to grave.number, grave
-    
+
+  = div_for quarter do
+    = render quarter.graves.sort.take(10)
+    - if quarter.graves.length > 10
+      = link_to t('.show_all'), links_graves_path(quarter_id: quarter.id), remote: true
+
 - if @quarterless.any?
   %h2= t '.quarterless'
-  - @quarterless.each do |grave|
+  - @quarterless.take(10).each do |grave|
     = link_to grave.number, grave

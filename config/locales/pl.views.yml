@@ -8,6 +8,7 @@ pl:
       title: Lista grobów
       new: Nowy grób
       quarterless: Poza kwaterą
+      show_all: Pokaż wszystkie
     show:
       quarter: Kwatera / pas
       no_quarter: nie przypisano
@@ -48,6 +49,7 @@ pl:
       death: Data śmierci
       grave: Grób
       actions: Akcje
+      search: Szukaj osoby
     show:
       first_name: Imię
       last_name: Nazwisko

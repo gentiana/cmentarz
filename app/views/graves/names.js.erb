@@ -1,0 +1,11 @@
+var quarter = $('#<%= dom_id(@quarter)%>');
+quarter.empty();
+var graves = $.parseJSON("<%= escape_javascript(@graves) %>");
+var grave_links = $.map(graves, function(grave, id) {
+  $('<a>', {
+    text: grave.name,
+    href: grave.path,
+    class: 'grave'
+  });
+});
+quarter.append(grave_links);

@@ -41,6 +41,33 @@ RSpec.describe 'Grave Pages', type: :request do
         expect(page).to have_content subtitle
         expect(page).to have_link quarterless.number
       end
+
+      it 'should load all graves after AJAX load', js: true do
+        show_all = t 'graves.index.show_all'
+        quarter_selector = "##{ActionView::RecordIdentifier.dom_id(quarter)}"
+        6.times { create :grave, quarter: quarter }
+        visit graves_path
+
+        within quarter_selector do
+          expect(page).not_to have_link show_all
+          expect(page).to have_selector 'a.grave', count: 6
+        end
+
+        9.times { create :grave, quarter: quarter }
+        visit graves_path
+
+        within quarter_selector do
+          expect(page).to have_link show_all
+          expect(page).to have_selector 'a.grave', count: 10
+
+          click_link show_all
+          # wait_for_ajax
+          sleep 5
+
+          expect(page).to have_no_link show_all
+          expect(page).to have_selector 'a.grave', count: 15
+        end
+      end
     end
   end
 
